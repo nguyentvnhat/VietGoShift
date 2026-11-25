@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thợ Ơi hoạt động thế nào</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Thợ Ơi explainer: blueprint paper + work-order ticket. One visual world, light only. */
+  --paper:#ECF0F6;
+  --grid:#DCE3EE;
+  --ink:#142033;
+  --muted:#4A5668;
+  --blue:#1450A3;
+  --amber:#FFB020;
+  --ok:#0F7B4C;
+  --card:#FFFFFF;
+  --display:'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:32px 32px;
+  color:var(--ink);
+  font-family:var(--display);
+  font-size:17px;
+  line-height:1.55;
+}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-size:clamp(40px,6.4vw,76px);line-height:1.02;font-weight:900;letter-spacing:-.03em}
+h2{font-size:clamp(30px,4.2vw,48px);line-height:1.08;font-weight:800;letter-spacing:-.02em}
+h3{font-size:20px;font-weight:700}
+p{margin:0;max-width:62ch}
+section{padding:72px 0}
+.lead{font-size:19px;color:var(--muted)}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;text-decoration:none;color:var(--ink)}
+.logo b{width:38px;height:38px;border-radius:12px;background:var(--amber);display:grid;place-items:center;font-weight:900}
+.btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 22px;border-radius:24px;font-weight:700;font-size:15px;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+/* hero */
+.hero{display:flex;flex-wrap:wrap;gap:48px;align-items:center;padding:32px 0 64px}
+.hero-copy{flex:1 1 440px;display:flex;flex-direction:column;gap:22px}
+.hero-copy h1 em{font-style:normal;color:var(--blue);background:linear-gradient(transparent 62%, var(--amber) 62%, var(--amber) 90%, transparent 90%)}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+
+/* the ticket */
+.ticket-wrap{flex:1 1 420px;display:flex;justify-content:center}
+.ticket{position:relative;width:100%;max-width:460px;background:var(--card);border-radius:18px;padding:26px 26px 72px;box-shadow:0 24px 60px -24px rgba(20,32,51,.35);transform:rotate(1.2deg)}
+.ticket::before,.ticket::after{content:"";position:absolute;left:0;right:0;height:12px;background:radial-gradient(circle at 8px 0, var(--paper) 6px, transparent 6.5px) 0 0/16px 12px repeat-x}
+.ticket::before{top:-1px}
+.ticket::after{bottom:-1px;transform:scaleY(-1)}
+.t-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px dashed var(--grid);padding-bottom:14px;margin-bottom:6px}
+.t-head span:first-child{font-weight:800;font-size:18px}
+.row{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:11px 10px;border-radius:10px;animation:scan 9s infinite}
+.row .k{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em;padding-top:2px}
+.row .v{font-size:15px;font-weight:600}
+.row .v small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.row:nth-child(2){animation-delay:0s}
+.row:nth-child(3){animation-delay:1.2s}
+.row:nth-child(4){animation-delay:2.4s}
+.row:nth-child(5){animation-delay:3.6s}
+.row:nth-child(6){animation-delay:4.8s}
+.row:nth-child(7){animation-delay:6s}
+@keyframes scan{0%,10%{background:#FFF3D6}14%,100%{background:transparent}}
+.ai{color:#5B3FD1}
+.stamp{position:absolute;right:22px;bottom:18px;border:3px solid var(--ok);color:var(--ok);font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.08em;padding:8px 12px;border-radius:8px;transform:rotate(-9deg);background:rgba(255,255,255,.85);animation:thump 9s infinite}
+@keyframes thump{0%,76%{transform:rotate(-9deg) scale(1)}80%{transform:rotate(-9deg) scale(1.25)}84%,100%{transform:rotate(-9deg) scale(1)}}
+.drip{position:absolute;left:-26px;top:58px;width:14px;height:20px;animation:drip 2.2s infinite ease-in}
+@keyframes drip{0%{transform:translateY(0);opacity:1}80%{transform:translateY(110px);opacity:1}100%{transform:translateY(120px);opacity:0}}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.fact{background:var(--card);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px;border-top:6px solid var(--ink)}
+.fact .n{font-size:54px;font-weight:900;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.fact .bar{height:10px;border-radius:5px;background:var(--grid);overflow:hidden}
+.fact .bar i{display:block;height:100%;background:var(--blue);transform-origin:left;animation:fill 3s ease-out infinite alternate}
+@keyframes fill{from{transform:scaleX(.92)}to{transform:scaleX(1)}}
+.fact .src{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* journey */
+.journey{display:flex;flex-wrap:wrap;gap:40px;margin-top:36px;align-items:flex-start}
+.steps{flex:1 1 420px;display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0}
+.step{width:100%;text-align:left;display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:start;padding:14px 16px;border-radius:14px;border:2px solid transparent;background:rgba(255,255,255,.55);font-family:inherit;color:var(--ink);cursor:pointer;position:relative;overflow:hidden}
+.step .no{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--muted);padding-top:2px}
+.step .tt{font-weight:700;font-size:17px}
+.step .dd{font-size:14px;color:var(--muted);margin-top:2px}
+.step[aria-current="step"]{background:var(--card);border-color:var(--blue)}
+.step[aria-current="step"] .no{color:var(--blue)}
+.step .prog{position:absolute;left:0;bottom:0;height:3px;background:var(--amber);width:0}
+.step[aria-current="step"] .prog{animation:prog var(--dur,3.6s) linear forwards}
+@keyframes prog{to{width:100%}}
+.phone-col{flex:0 1 330px;display:flex;justify-content:center;width:100%}
+.phone{width:300px;height:600px;border-radius:44px;background:var(--ink);padding:12px;box-shadow:0 30px 60px -30px rgba(20,32,51,.6)}
+.screen{width:100%;height:100%;border-radius:34px;background:#F4F6F9;overflow:hidden;display:flex;flex-direction:column}
+.s-top{background:var(--blue);color:#fff;padding:24px 18px 16px;display:flex;flex-direction:column;gap:4px}
+.s-top b{font-size:17px}
+.s-top span{font-size:12px;opacity:.85}
+.s-body{padding:14px;display:flex;flex-direction:column;gap:10px;animation:rise .45s ease-out}
+@keyframes rise{from{transform:translateY(10px)}to{transform:none}}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:4px 8px;border-radius:8px;background:#EAF1FB;color:var(--blue)}
+.card{background:#fff;border-radius:14px;padding:12px;font-size:13px;display:flex;flex-direction:column;gap:6px}
+.big{font-size:22px;font-weight:800}
+.meter{height:6px;border-radius:3px;background:#EFEBFC}
+.meter i{display:block;height:100%;border-radius:3px;background:#5B3FD1}
+.cta-s{margin-top:auto;margin:auto 14px 16px;height:44px;border-radius:22px;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+
+/* ladder */
+.std{display:flex;flex-wrap:wrap;gap:24px;margin-top:36px}
+.idcard{flex:1 1 320px;background:var(--blue);color:#fff;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.idcard::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;border:28px solid rgba(255,255,255,.08)}
+.idcard .who{display:flex;gap:14px;align-items:center}
+.idcard .av{width:60px;height:60px;border-radius:30px;background:#fff;color:var(--blue);display:grid;place-items:center;font-weight:900;font-size:20px}
+.badge{align-self:flex-start;background:var(--amber);color:var(--ink);font-weight:800;font-size:12px;padding:4px 10px;border-radius:8px}
+.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.checks li::before{content:"✓ ";color:var(--amber);font-weight:800}
+.ladder{flex:2 1 460px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end}
+.rung{background:var(--card);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;border-bottom:8px solid var(--grid)}
+.rung:nth-child(1){min-height:200px}
+.rung:nth-child(2){min-height:250px;border-bottom-color:var(--blue)}
+.rung:nth-child(3){min-height:300px;border-bottom-color:var(--amber)}
+.rung .lv{font-family:var(--mono);font-weight:700;font-size:13px;color:var(--muted)}
+.rung h3{font-size:22px}
+.rung p{font-size:14px;color:var(--muted)}
+.rung .you{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--blue)}
+.progress{height:8px;border-radius:4px;background:var(--grid);overflow:hidden}
+.progress i{display:block;height:100%;width:60%;background:var(--amber);animation:grow 2.4s ease-in-out infinite alternate}
+@keyframes grow{from{width:56%}to{width:60%}}
+@media (max-width:640px){.ladder{grid-template-columns:1fr}.rung{min-height:0!important}}
+
+/* network */
+.net{margin-top:36px;background:var(--ink);border-radius:24px;padding:22px;color:#fff;display:flex;flex-direction:column;gap:16px}
+.net-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
+.phases{display:flex;flex-wrap:wrap;gap:8px}
+.phase{height:40px;padding:0 16px;border-radius:20px;border:1.5px solid #3E4A5C;background:transparent;color:#C3CBD8;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.phase[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+canvas{width:100%;height:360px;display:block;border-radius:16px;background:#0E1828}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:#C3CBD8}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:6px;vertical-align:middle}
+.lg-a::before{background:var(--amber)}
+.lg-b::before{background:#5C8FE0}
+.lg-c::before{background:#2FBF71}
+.net-cap{font-size:16px;max-width:none}
+
+/* markets */
+.markets{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px}
+.mk{background:var(--card);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.mk .flag{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted)}
+.mk .n{font-size:34px;font-weight:900;letter-spacing:-.02em}
+.mk .borrow{margin-top:auto;border-top:2px dashed var(--grid);padding-top:12px;font-size:14px}
+.mk .borrow b{color:var(--blue)}
+
+/* end */
+.end{background:var(--blue);color:#fff;border-radius:28px;padding:40px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.end .btn.primary{background:var(--amber);color:var(--ink)}
+.end .btn.ghost{color:#fff;border-color:#fff}
+footer{padding:32px 0 48px;font-size:13px;color:var(--muted)}
+footer a{color:var(--muted)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#top" aria-label="Thợ Ơi"><b>Ơi</b>Thợ Ơi</a>
+    <a class="btn ghost" href="/prototype.pdf" target="_blank" rel="noopener">Xem prototype</a>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Nền tảng thợ điện nước · TP.HCM</span>
+        <h1>Gọi thợ như gọi xe. <em>Biết giá</em> trước khi thợ đến.</h1>
+        <p class="lead">Thợ Ơi chuẩn hoá người thợ trước, rồi mới mở thành nền tảng. Khách chụp ảnh sự cố, AI ước lượng giá, thợ có bậc đến sửa, mọi bước có ảnh, nghiệm thu xong mới trả tiền.</p>
+        <div class="actions">
+          <a class="btn primary" href="#how">Xem một lần sửa</a>
+          <a class="btn ghost" href="#strategy">Chiến lược 2 bước</a>
+        </div>
+      </div>
+
+      <div class="ticket-wrap">
+        <div class="ticket" role="img" aria-label="Phiếu sửa chữa mẫu: vòi bếp rỉ, AI chẩn đoán gioăng mòn, ước lượng 570 đến 640 nghìn, thợ Bậc 2, tổng 740 nghìn, đã nghiệm thu">
+          <svg class="drip" viewBox="0 0 14 20" aria-hidden="true"><path d="M7 0C7 0 0 9 0 13a7 7 0 0014 0C14 9 7 0 7 0z" fill="#2F78D0"/></svg>
+          <div class="t-head"><span>Phiếu sửa chữa</span><span class="mono" style="font-size:13px;color:var(--muted)">#TO-1042</span></div>
+          <div class="row"><span class="k">SỰ CỐ</span><span class="v">Vòi bếp rỉ liên tục<small>Khách gửi ảnh lúc 21:04</small></span></div>
+          <div class="row"><span class="k">AI CHẨN ĐOÁN</span><span class="v ai">Gioăng chân vòi mòn · 82%<small>Dặn khách khoá van góc tạm thời</small></span></div>
+          <div class="row"><span class="k">ƯỚC LƯỢNG</span><span class="v">570.000–640.000đ<small>45–60 phút · vượt 20% được huỷ miễn phí</small></span></div>
+          <div class="row"><span class="k">THỢ</span><span class="v">Nguyễn Minh Tâm · Bậc 2<small>Chứng chỉ quốc gia · có bảo hiểm · đến 08:12</small></span></div>
+          <div class="row"><span class="k">PHÁT SINH</span><span class="v">Ống thoát nứt +65.000đ<small>Khách duyệt trên app lúc 08:51</small></span></div>
+          <div class="row"><span class="k">TỔNG</span><span class="v">740.000đ<small>Bảo hành công 30 ngày · vòi 12 tháng</small></span></div>
+          <div class="stamp" aria-hidden="true">ĐÃ NGHIỆM THU</div>
+        </div>
+      </div>
+    </div>
+
+    <section aria-labelledby="why">
+      <span class="eyebrow">Vấn đề</span>
+      <h2 id="why" style="margin-top:10px">Gọi thợ ở Việt Nam vẫn là một canh bạc.</h2>
+      <p class="lead" style="margin-top:14px">Không biết giá, không biết tay nghề, không ai chịu trách nhiệm khi hỏng lại. Thợ giỏi cũng không có cách chứng minh mình giỏi.</p>
+      <div class="facts">
+        <div class="fact"><span class="n">63,1%</span><div class="bar"><i style="width:63.1%"></i></div><span>lao động có việc làm phi chính thức</span><span class="src">NSO · năm 2025</span></div>
+        <div class="fact"><span class="n">29,2%</span><div class="bar"><i style="width:29.2%"></i></div><span>lao động có bằng hoặc chứng chỉ</span><span class="src">Năm 2025</span></div>
+        <div class="fact"><span class="n">103.509</span><div class="bar"><i style="width:100%;background:var(--amber)"></i></div><span>hệ thống điện mặt trời mái nhà cần bảo trì định kỳ</span><span class="src">Bộ Công Thương · cuối 2023</span></div>
+      </div>
+    </section>
+
+    <section id="how" aria-labelledby="how-h">
+      <span class="eyebrow">Một lần sửa</span>
+      <h2 id="how-h" style="margin-top:10px">Sáu bước, bước nào cũng có bằng chứng.</h2>
+      <div class="journey">
+        <ol class="steps" id="steps"></ol>
+        <div class="phone-col"><div class="phone"><div class="screen" id="screen" aria-live="polite"></div></div></div>
+      </div>
+    </section>
+
+    <section id="strategy" aria-labelledby="std-h">
+      <span class="eyebrow">Bước 1 · Chuẩn hoá thợ</span>
+      <h2 id="std-h" style="margin-top:10px">Người thợ có bậc, có hồ sơ, có lộ trình.</h2>
+      <p class="lead" style="margin-top:14px">Bắt đầu từ 20 thợ của đối tác máy lọc nước và điện solar. Mỗi người được thi thực hành, xếp bậc, làm theo quy trình chuẩn và nhận tiền trong ngày.</p>
+      <div class="std">
+        <div class="idcard">
+          <span class="mono" style="font-size:12px;font-weight:700;opacity:.8">THỢ ID · TO-T0218</span>
+          <div class="who"><div class="av">MT</div><div><div style="font-weight:800;font-size:20px">Nguyễn Minh Tâm</div><div style="font-size:14px;opacity:.85">Điện nước · máy lọc · solar</div></div></div>
+          <span class="badge">Thợ chuẩn Bậc 2</span>
+          <ul class="checks"><li>Đã xác minh CCCD và lý lịch</li><li>Chứng chỉ kỹ năng nghề quốc gia</li><li>Bảo hiểm tai nạn và trách nhiệm</li><li>312 việc · ★ 4.9 · 98% đúng giờ</li></ul>
+        </div>
+        <div class="ladder">
+          <div class="rung"><span class="lv">BẬC 1</span><h3>Vào nghề</h3><p>Việc đơn giản: thay vòi, ổ cắm, thông tắc. Luôn có thợ bậc cao hỗ trợ.</p></div>
+          <div class="rung"><span class="lv">BẬC 2</span><h3>Thợ chuẩn</h3><p>Tự chẩn đoán, báo giá, nhận việc bảo trì định kỳ của đối tác.</p><span class="you">Minh Tâm đang ở đây</span><div class="progress"><i></i></div><span class="mono" style="font-size:12px;color:var(--muted)">18/30 việc 5★ để lên Bậc 3</span></div>
+          <div class="rung"><span class="lv">BẬC 3</span><h3>Chuyên gia</h3><p>Tủ điện, inverter solar, đơn doanh nghiệp có cam kết thời gian xử lý.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="net-h">
+      <span class="eyebrow">Bước 2 · Nền tảng hoá</span>
+      <h2 id="net-h" style="margin-top:10px">Khi bộ chuẩn chạy ổn, mở cho cả thị trường.</h2>
+      <div class="net">
+        <div class="net-head">
+          <p class="net-cap" id="netCap">Hôm nay: 20 thợ hạt giống của đối tác, việc đến từ tệp khách đã lắp máy lọc nước và solar.</p>
+          <div class="phases" role="group" aria-label="Giai đoạn">
+            <button class="phase" data-p="0" aria-pressed="true">Hôm nay</button>
+            <button class="phase" data-p="1" aria-pressed="false">Bước 1</button>
+            <button class="phase" data-p="2" aria-pressed="false">Bước 2</button>
+          </div>
+        </div>
+        <canvas id="net" aria-label="Mạng lưới thợ và khách lớn dần qua ba giai đoạn" role="img"></canvas>
+        <div class="legend"><span class="lg-a">Thợ hạt giống</span><span class="lg-b">Thợ đã chuẩn hoá</span><span class="lg-c">Khách và việc</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="mk-h">
+      <span class="eyebrow">Học từ ba thị trường</span>
+      <h2 id="mk-h" style="margin-top:10px">Ghép điểm mạnh của Mỹ, Nhật và Việt Nam.</h2>
+      <div class="markets">
+        <div class="mk"><span class="flag">MỸ · THUMBTACK</span><span class="n">300.000+ thợ</span><p style="font-size:15px;color:var(--muted)">Chợ mở, thợ trả phí theo lead. Chạy được vì thợ đã có giấy phép hành nghề.</p><div class="borrow"><b>Thợ Ơi mượn:</b> Thợ ID làm lớp “giấy phép” mà Việt Nam chưa có, để sau này mở chợ.</div></div>
+        <div class="mk"><span class="flag">NHẬT · TIMEE</span><span class="n">14,2 triệu lao động</span><p style="font-size:15px;color:var(--muted)">Cầu doanh nghiệp lặp lại, tiền đi qua nền tảng, đánh giá hai chiều và điểm phạt.</p><div class="borrow"><b>Thợ Ơi mượn:</b> khách B2B, trả tiền trong ngày, kỷ luật bằng cơ chế.</div></div>
+        <div class="mk"><span class="flag">VIỆT NAM · BTASKEE</span><span class="n">10.000+ cộng tác viên</span><p style="font-size:15px;color:var(--muted)">Nền tảng tự tuyển, đào tạo, cố định giá. Chưa có ai dẫn đầu mảng điện nước.</p><div class="borrow"><b>Thợ Ơi mượn:</b> tự chuẩn hoá và giá niêm yết, áp vào việc có kỹ năng.</div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="end">
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:56ch">
+          <h2 style="color:#fff">Xem tận tay từng màn hình.</h2>
+          <p style="opacity:.9">Prototype có đủ luồng khách, luồng thợ, trợ lý AI và trang cho doanh nghiệp. Bản phân tích có so sánh ba mô hình, persona và use-case.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="/demo">Mở prototype</a>
+          <a class="btn ghost" href="https://claude.ai/artifact/4hkTVtijrYW8kcUDCmLcdU">Đọc phân tích</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Số liệu: Thumbtack (Fast Company, 04/2026), Timee (Monex, 04/2026), bTaskee (JobsGO), lao động (Cục Thống kê, 2025), điện mặt trời mái nhà (Sổ tay ĐMTMN, Bộ Công Thương/EREA). Giá, tên thợ và đơn #TO-1042 là ví dụ minh hoạ.
+  </footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- journey stepper ---------- */
+  var steps = [
+    {t:'Chụp ảnh, AI chẩn đoán', d:'AI khoanh chỗ hỏng, nói khả năng bao nhiêu phần trăm, dặn cách xử lý tạm.',
+     s:'<div class="s-top"><b>Trợ lý Thợ Ơi</b><span>Chẩn đoán sơ bộ · miễn phí</span></div><div class="s-body"><div class="card"><span class="chip" style="background:#EFEBFC;color:#5B3FD1">PHÂN TÍCH ẢNH</span><b>Rò ở chân vòi, gioăng mòn</b><div class="meter"><i style="width:82%"></i></div><span style="color:#4A5668">82% · thân vòi gỉ 64%</span></div><div class="card">Trong lúc chờ: khoá van góc dưới bồn.</div></div>'},
+    {t:'Biết giá trước', d:'Khoảng giá, thời gian sửa, và cam kết: vượt ước lượng hơn 20% thì huỷ miễn phí.',
+     s:'<div class="s-top" style="background:#5B3FD1"><b>Ước lượng bởi AI</b><span>Thay vòi bếp · tin cậy 82%</span></div><div class="s-body"><div class="card"><span style="color:#4A5668">Chi phí dự kiến</span><span class="big">570–640k</span><span>45–60 phút · thợ đến ~30 phút</span></div><div class="card">Công cố định 150.000đ<br>Vật tư theo giá niêm yết</div></div><div class="cta-s">Đặt thợ</div>'},
+    {t:'Thợ chuẩn đến', d:'Biết trước ai vào nhà: bậc, chứng chỉ, bảo hiểm, biển số xe.',
+     s:'<div class="s-top"><b>Thợ đang đến</b><span>Dự kiến 12 phút · 2,4 km</span></div><div class="s-body"><div class="card"><b style="font-size:15px">Nguyễn Minh Tâm</b><span>★ 4.9 · 312 việc</span><div><span class="chip" style="background:#FFF4DC;color:#6B4600">Bậc 2</span> <span class="chip">Chứng chỉ quốc gia</span> <span class="chip" style="background:#EEF1F5;color:#142033">Bảo hiểm</span></div></div></div>'},
+    {t:'Sửa có ảnh từng bước', d:'Khách xem tiến độ từ xa. Phát sinh nào cũng phải được khách duyệt trên app.',
+     s:'<div class="s-top"><b>Đang sửa</b><span>Cập nhật trực tiếp</span></div><div class="s-body"><div class="card">✓ 14:15 Khoá van tổng<br>✓ 14:21 Tháo vòi cũ<br>✓ 14:34 Lắp vòi và van góc mới<br><b style="color:#1450A3">● Thử áp lực nước</b></div><div class="card" style="border:2px solid #FFB020"><span class="chip" style="background:#FFF4DC;color:#6B4600">BÁO GIÁ BỔ SUNG</span><b>Ống thoát nứt +65.000đ</b></div></div>'},
+    {t:'Nghiệm thu rồi trả tiền', d:'Khách tick đủ 5 mục kiểm tra, ký điện tử, mới thanh toán.',
+     s:'<div class="s-top"><b>Nghiệm thu</b><span>Kiểm tra cùng thợ</span></div><div class="s-body"><div class="card">✓ Mở nước 5 phút, không rò<br>✓ Nước chảy đều<br>✓ Vòi chắc chắn<br>✓ Khu vực đã dọn<br>✓ Bàn giao vật tư cũ</div><div class="card"><span style="color:#4A5668">Tổng</span><span class="big">740.000đ</span></div></div><div class="cta-s" style="background:#0F7B4C">Ký nghiệm thu</div>'},
+    {t:'Bảo hành và chăm sóc', d:'Phiếu bảo hành điện tử. AI hỏi thăm sau vài ngày, nhắc bảo trì định kỳ.',
+     s:'<div class="s-top" style="background:#0F7B4C"><b>Bảo hành #BH-1042</b><span>Công 30 ngày · vòi 12 tháng</span></div><div class="s-body"><div class="card" style="border:1.5px solid #D9D0F7">Đã 3 ngày từ khi thay vòi. Vòi mới dùng ổn chứ bạn?<div><span class="chip" style="background:#EFEBFC;color:#5B3FD1">Ổn cả</span> <span class="chip" style="background:#EFEBFC;color:#5B3FD1">Hơi rỉ lại</span></div></div><div class="card">Máy lọc nước · thay lõi 1–3 trước 05/12</div></div>'}
+  ];
+  var list = document.getElementById('steps');
+  var screen = document.getElementById('screen');
+  var cur = 0, timer = null, DUR = 3600;
+  steps.forEach(function(s, i){
+    var li = document.createElement('li');
+    var b = document.createElement('button');
+    b.className = 'step'; b.type = 'button'; b.id = 'step-' + i;
+    b.style.setProperty('--dur', DUR + 'ms');
+    b.innerHTML = '<span class="no">0' + (i+1) + '</span><span><span class="tt"></span><span class="dd" style="display:block"></span></span><span class="prog"></span>';
+    b.querySelector('.tt').textContent = s.t;
+    b.querySelector('.dd').textContent = s.d;
+    b.addEventListener('click', function(){ show(i); restart(); });
+    li.appendChild(b); list.appendChild(li);
+  });
+  function show(i){
+    cur = i;
+    var bs = list.querySelectorAll('.step');
+    bs.forEach(function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    var p = bs[i].querySelector('.prog'); p.style.animation = 'none'; void p.offsetWidth; p.style.animation = '';
+    screen.innerHTML = steps[i].s;
+  }
+  function restart(){
+    if (reduce) return;
+    clearInterval(timer);
+    timer = setInterval(function(){ show((cur + 1) % steps.length); }, DUR);
+  }
+  show(0); restart();
+  list.addEventListener('mouseenter', function(){ clearInterval(timer); });
+  list.addEventListener('mouseleave', restart);
+  list.addEventListener('focusin', function(){ clearInterval(timer); });
+
+  /* ---------- network canvas ---------- */
+  var cv = document.getElementById('net'), ctx = cv.getContext('2d');
+  var caps = [
+    'Hôm nay: 20 thợ hạt giống của đối tác, việc đến từ tệp khách đã lắp máy lọc nước và solar.',
+    'Bước 1: 50–100 thợ chuẩn hoá ở 2–3 quận, khách doanh nghiệp nhiều điểm và bảo trì định kỳ.',
+    'Bước 2: Thợ ID và công cụ mở cho mọi thợ; việc đến qua đối tác, rồi khách lẻ trên toàn thành phố.'
+  ];
+  var targets = [20, 90, 320];
+  var seed = 7;
+  function rnd(){ seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  var nodes = [];
+  for (var i = 0; i < 320; i++){
+    var a = rnd() * Math.PI * 2, r = Math.pow(rnd(), 0.6);
+    var ring = i < 20 ? 0.22 : (i < 90 ? 0.55 : 1);
+    nodes.push({a:a, r:r * ring, kind: i < 20 ? 0 : (i % 3 === 0 ? 2 : 1), born: 0});
+  }
+  var phase = 0, shown = 20, W = 0, H = 0, pulses = [];
+  function size(){
+    var dpr = window.devicePixelRatio || 1;
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function pos(n){
+    var rx = W * 0.46, ry = H * 0.44;
+    return [W/2 + Math.cos(n.a) * n.r * rx, H/2 + Math.sin(n.a) * n.r * ry];
+  }
+  var colors = ['#FFB020', '#5C8FE0', '#2FBF71'];
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    var n = Math.floor(shown);
+    ctx.lineWidth = 1;
+    for (var i = 1; i < n; i++){
+      var p = pos(nodes[i]), q = pos(nodes[i % 20]);
+      ctx.strokeStyle = 'rgba(92,143,224,0.16)';
+      ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke();
+    }
+    pulses.forEach(function(pl){
+      var p = pos(nodes[pl.from]), q = pos(nodes[pl.to]);
+      var x = p[0] + (q[0] - p[0]) * pl.t, y = p[1] + (q[1] - p[1]) * pl.t;
+      ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(x, y, 2.2, 0, 7); ctx.fill();
+    });
+    for (var j = 0; j < n; j++){
+      var nd = nodes[j], pp = pos(nd);
+      ctx.fillStyle = colors[nd.kind];
+      ctx.beginPath(); ctx.arc(pp[0], pp[1], nd.kind === 0 ? 5.5 : 3.2, 0, 7); ctx.fill();
+    }
+    ctx.fillStyle = '#C3CBD8';
+    ctx.font = '600 13px "JetBrains Mono", monospace';
+    ctx.fillText(n + ' điểm trên mạng lưới', 16, H - 16);
+  }
+  function tick(){
+    var target = targets[phase];
+    shown += (target - shown) * 0.04;
+    if (Math.random() < 0.35 && shown > 21){
+      var n = Math.floor(shown);
+      pulses.push({from: 20 + Math.floor(Math.random() * (n - 20)), to: Math.floor(Math.random() * 20), t: 0});
+    }
+    pulses.forEach(function(p){ p.t += 0.03; });
+    pulses = pulses.filter(function(p){ return p.t < 1; });
+    draw();
+    requestAnimationFrame(tick);
+  }
+  var btns = document.querySelectorAll('.phase'), auto = null;
+  function setPhase(p){
+    phase = p;
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(Number(b.dataset.p) === p)); });
+    document.getElementById('netCap').textContent = caps[p];
+    if (reduce){ shown = targets[p]; draw(); }
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ clearInterval(auto); setPhase(Number(b.dataset.p)); }); });
+  size(); window.addEventListener('resize', function(){ size(); draw(); });
+  if (reduce){ draw(); }
+  else {
+    requestAnimationFrame(tick);
+    auto = setInterval(function(){ setPhase((phase + 1) % 3); }, 5200);
+  }
+})();
+</script>
+</body>
+</html>

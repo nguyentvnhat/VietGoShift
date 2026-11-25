@@ -24,7 +24,7 @@ export default function CompletePage() {
     return (
       <div className="py-16 text-center">
         <p className="font-semibold">Đơn chưa hoàn thành</p>
-        <Link href={`/tracking/${order.id}`} className="font-semibold text-emerald-700">
+        <Link href={`/demo/tracking/${order.id}`} className="font-semibold text-emerald-700">
           Theo dõi đơn
         </Link>
       </div>
@@ -80,7 +80,7 @@ export default function CompletePage() {
       />
 
       <Link
-        href={role === "worker" ? "/worker" : "/"}
+        href={role === "worker" ? "/demo/worker" : "/demo"}
         className="text-center text-sm font-semibold text-emerald-700"
       >
         Về trang chủ

@@ -11,7 +11,7 @@ const font = Be_Vietnam_Pro({ subsets: ["vietnamese"], weight: ["400", "500", "6
 
 export const metadata: Metadata = {
   title: "VietGoShift – Đặt thợ theo ca",
-  description: "Prototype đặt dịch vụ theo ca: dọn dẹp, phụ bếp, bốc xếp sự kiện.",
+  description: "Prototype đặt dịch vụ theo ca: thợ điện, thợ nước, thợ sơn, sửa chữa.",
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#059669" };

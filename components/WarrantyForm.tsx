@@ -50,7 +50,7 @@ export function WarrantyForm({ warranty, canRequest, onSubmit }: Props) {
         id="warranty"
         rows={3}
         className={inputClass}
-        placeholder="Ví dụ: Khu vực bếp chưa được lau sạch..."
+        placeholder="Ví dụ: Vòi nước vẫn còn rò rỉ..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />

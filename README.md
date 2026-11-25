@@ -7,7 +7,7 @@ Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Zod 4 · 
 Khách đặt lịch → Thợ nhận → Đang đến (thông tin thợ + ETA) → **Thợ quét QR check-in của khách** → Đang làm → Thợ gửi ghi chú/ảnh bàn giao → **Thợ quét QR check-out của khách** (= nghiệm thu, tính giờ làm thực tế) → Hoàn thành → Đánh giá 2 chiều → Yêu cầu bảo hành.
 
 - `/` — 3 thẻ dịch vụ + danh sách đơn của bạn
-- `/booking?service=cleaning` — 4 bước: dịch vụ → ngày/giờ → địa chỉ → xác nhận (Zod validate từng bước)
+- `/demo/booking?service=electric` — 4 bước: dịch vụ → ngày/giờ → địa chỉ → xác nhận (Zod validate từng bước)
 - `/tracking/[id]` — timeline trạng thái, nút **Giả lập →** để chuyển bước
 - `/complete/[id]` — đánh giá 2 chiều + yêu cầu bảo hành ("Đang xử lý")
 - `/worker` — góc nhìn thợ: nhận đơn, check-in, hoàn thành

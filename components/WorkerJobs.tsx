@@ -78,7 +78,7 @@ function JobAction({ job, workerId }: { job: Order; workerId: string }) {
   }
   return (
     <Link
-      href={`/complete/${job.id}`}
+      href={`/demo/complete/${job.id}`}
       className="text-center text-sm font-semibold text-emerald-700"
     >
       Đánh giá khách hàng

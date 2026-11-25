@@ -1,5 +1,5 @@
 export type Service = {
-  id: "cleaning" | "kitchen" | "loading";
+  id: "electric" | "plumbing" | "painting" | "repair";
   name: string;
   description: string;
   pricePerHour: number;
@@ -8,25 +8,32 @@ export type Service = {
 
 export const SERVICES = [
   {
-    id: "cleaning",
-    name: "Dọn dẹp theo ca",
-    description: "Vệ sinh nhà ở, văn phòng, căn hộ. Thợ mang theo dụng cụ cơ bản.",
-    pricePerHour: 80_000,
-    icon: "🧹",
+    id: "electric",
+    name: "Thợ điện",
+    description: "Sửa chập điện, thay ổ cắm, công tắc, đèn, đi lại dây điện trong nhà.",
+    pricePerHour: 150_000,
+    icon: "⚡",
   },
   {
-    id: "kitchen",
-    name: "Phụ bếp theo ca",
-    description: "Sơ chế, rửa bát, hỗ trợ bếp chính cho nhà hàng và tiệc gia đình.",
-    pricePerHour: 70_000,
-    icon: "🍳",
+    id: "plumbing",
+    name: "Thợ nước",
+    description: "Sửa rò rỉ, thông tắc, lắp đặt vòi, bồn rửa, máy bơm, đường ống nước.",
+    pricePerHour: 150_000,
+    icon: "🚰",
   },
   {
-    id: "loading",
-    name: "Bốc xếp sự kiện",
-    description: "Khuân vác, dựng và dọn sân khấu, bàn ghế cho sự kiện.",
-    pricePerHour: 100_000,
-    icon: "📦",
+    id: "painting",
+    name: "Thợ sơn",
+    description: "Sơn tường, sơn lại phòng, xử lý ẩm mốc, bong tróc cho nhà ở và văn phòng.",
+    pricePerHour: 120_000,
+    icon: "🎨",
+  },
+  {
+    id: "repair",
+    name: "Sửa chữa",
+    description: "Sửa chữa nhỏ trong nhà: cửa, bản lề, kệ tủ, lắp đặt đồ nội thất.",
+    pricePerHour: 130_000,
+    icon: "🔧",
   },
 ] as const satisfies readonly Service[];
 

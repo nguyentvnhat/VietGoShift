@@ -16,7 +16,7 @@ import { SCAN_STEP, STATUS_LABEL, advanceOrder, nextStatus } from "@/lib/orders"
 import { DEMO_USERS } from "@/lib/session";
 
 const DEMO_HANDOVER = {
-  note: "(Demo) Đã hoàn thành toàn bộ hạng mục, dọn dẹp khu vực làm việc.",
+  note: "(Demo) Đã hoàn thành toàn bộ hạng mục, vệ sinh khu vực làm việc.",
   photos: [],
 };
 
@@ -70,7 +70,7 @@ export default function TrackingPage() {
 
       {order.status === "completed" ? (
         <Link
-          href={`/complete/${order.id}`}
+          href={`/demo/complete/${order.id}`}
           className="rounded-xl bg-emerald-600 px-4 py-3 text-center font-semibold text-white"
         >
           Đánh giá & bảo hành

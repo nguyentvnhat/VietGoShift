@@ -8,7 +8,7 @@ export function OrderNotFound() {
       <p className="text-sm text-slate-500">
         Dữ liệu demo lưu trong trình duyệt này (localStorage).
       </p>
-      <Link href="/" className="font-semibold text-emerald-700">
+      <Link href="/demo" className="font-semibold text-emerald-700">
         Về trang chủ
       </Link>
     </div>

@@ -50,7 +50,7 @@ export function BookingForm({ initialServiceId }: { initialServiceId?: string })
     const result = bookingSchema.safeParse(draft);
     if (!result.success) return setErrors(toFieldErrors(result.error));
     const order = orderStore.create(result.data, userId);
-    router.push(`/tracking/${order.id}`);
+    router.push(`/demo/tracking/${order.id}`);
   }
 
   const service = getService(draft.serviceId);

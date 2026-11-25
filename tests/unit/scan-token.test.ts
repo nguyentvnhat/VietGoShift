@@ -33,7 +33,7 @@ describe("scanError", () => {
     id: "abc12345",
     customerId: "cus-001",
     workerId: "wrk-001",
-    serviceId: "cleaning",
+    serviceId: "electric",
     date: "2099-01-15",
     startTime: "08:00",
     hours: 4,

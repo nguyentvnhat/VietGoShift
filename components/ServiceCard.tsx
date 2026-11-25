@@ -16,7 +16,7 @@ export function ServiceCard({ service }: { service: Service }) {
             từ {formatVnd(service.pricePerHour)}/giờ
           </span>
           <Link
-            href={`/booking?service=${service.id}`}
+            href={`/demo/booking?service=${service.id}`}
             className="shrink-0 rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold whitespace-nowrap text-white active:bg-emerald-700"
           >
             Đặt ngay

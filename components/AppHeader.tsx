@@ -8,7 +8,7 @@ export function AppHeader({ session }: { session: Session }) {
     <header className="sticky top-0 z-20 bg-emerald-600 text-white shadow-md">
       <div className="mx-auto flex max-w-md items-center gap-3 px-4 py-3 md:max-w-2xl">
         <Link
-          href={isWorker ? "/worker" : "/"}
+          href={isWorker ? "/demo/worker" : "/demo"}
           aria-label="VietGoShift"
           className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-lg font-extrabold text-emerald-600"
         >

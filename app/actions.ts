@@ -15,7 +15,7 @@ export async function switchRole(role: Role) {
   if (!ROLES.includes(role)) throw new Error("Invalid role");
   const token = await createSessionToken({ userId: DEMO_USERS[role], role });
   (await cookies()).set(SESSION_COOKIE, token, { httpOnly: true, sameSite: "lax", path: "/" });
-  redirect(role === "worker" ? "/worker" : "/");
+  redirect(role === "worker" ? "/demo/worker" : "/demo");
 }
 
 /** Khách tạo mã QR cho thợ quét. */

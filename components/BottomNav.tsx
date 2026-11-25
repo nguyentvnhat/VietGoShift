@@ -29,18 +29,18 @@ const BRIEFCASE = icon("M4 7h16v12H4zM9 7V5h6v2M4 12h16");
 
 const TABS: Record<Role, Tab[]> = {
   customer: [
-    { href: "/", label: "Trang chủ", icon: HOME },
-    { href: "/booking", label: "Đặt lịch", icon: PLUS },
-    { href: "/orders", label: "Đơn hàng", icon: LIST },
+    { href: "/demo", label: "Trang chủ", icon: HOME },
+    { href: "/demo/booking", label: "Đặt lịch", icon: PLUS },
+    { href: "/demo/orders", label: "Đơn hàng", icon: LIST },
   ],
   worker: [
-    { href: "/worker", label: "Việc của tôi", icon: BRIEFCASE },
-    { href: "/orders", label: "Lịch sử", icon: LIST },
+    { href: "/demo/worker", label: "Việc của tôi", icon: BRIEFCASE },
+    { href: "/demo/orders", label: "Lịch sử", icon: LIST },
   ],
 };
 
 // Ẩn thanh tab trong các luồng thao tác (đặt lịch, theo dõi, hoàn thành) — giống Grab.
-const HIDDEN_PREFIXES = ["/booking", "/tracking", "/complete"];
+const HIDDEN_PREFIXES = ["/demo/booking", "/demo/tracking", "/demo/complete"];
 
 export function BottomNav({ role }: { role: Role }) {
   const pathname = usePathname();
@@ -50,7 +50,7 @@ export function BottomNav({ role }: { role: Role }) {
     <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
       <ul className="mx-auto flex max-w-md md:max-w-2xl">
         {TABS[role].map((tab) => {
-          const active = tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);
+          const active = tab.href === "/demo" ? pathname === "/demo" : pathname.startsWith(tab.href);
           return (
             <li key={tab.href} className="flex-1">
               <Link

@@ -31,7 +31,7 @@ export function HandoverForm({ onSubmit }: { onSubmit: (handover: Handover) => v
         <textarea
           rows={2}
           className={inputClass}
-          placeholder="Đã lau sàn, dọn bếp, đổ rác..."
+          placeholder="Đã thay ổ cắm, kiểm tra lại đường điện..."
           value={note}
           onChange={(e) => setNote(e.target.value)}
         />

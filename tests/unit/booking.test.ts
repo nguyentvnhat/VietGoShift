@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { bookingSchema, bookingStepSchemas, isValidSlot, toFieldErrors } from "@/schemas/booking";
 
 const valid = {
-  serviceId: "cleaning",
+  serviceId: "electric",
   date: "2099-01-15",
   startTime: "08:00",
   hours: "4",
@@ -53,7 +53,7 @@ describe("isValidSlot", () => {
 
 describe("bookingStepSchemas", () => {
   it("validates only the fields of the current step", () => {
-    expect(bookingStepSchemas[0].safeParse({ serviceId: "kitchen" }).success).toBe(true);
+    expect(bookingStepSchemas[0].safeParse({ serviceId: "plumbing" }).success).toBe(true);
     expect(bookingStepSchemas[2].safeParse({ address: "", phone: "" }).success).toBe(false);
   });
 });

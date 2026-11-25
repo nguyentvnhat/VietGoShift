@@ -24,7 +24,7 @@ export function RecentOrders({ showEmpty = false }: { showEmpty?: boolean }) {
         {orders.map((o) => (
           <li key={o.id}>
             <Link
-              href={o.status === "completed" ? `/complete/${o.id}` : `/tracking/${o.id}`}
+              href={o.status === "completed" ? `/demo/complete/${o.id}` : `/demo/tracking/${o.id}`}
               className="flex items-center justify-between rounded-xl bg-white p-3 text-sm ring-1 ring-slate-100"
             >
               <span>
